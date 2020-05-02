@@ -61,7 +61,6 @@ module.exports = {
             'niveis.escola_id': escola_id
         })
         .select('*')
-        .groupBy('professor.id')
 
         return response.json(professores)
     }

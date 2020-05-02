@@ -3,7 +3,7 @@ exports.up = function(knex) {
     return knex.schema.createTable('disciplinas', function(table){
         table.increments().primary();
         table.string('nome_disciplina');
-        table.time('carga_horaria');
+        table.integer('carga_horaria');
         table.integer('professor_id');
         table.integer('nivel_id');
         table.integer('escola_id');
