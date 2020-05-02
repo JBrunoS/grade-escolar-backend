@@ -43,7 +43,7 @@ module.exports = {
             return response.status(400).json({ error : 'This email is not longer valid'});
         }
         const mailOptions = {
-            from: "jbrnsousa@gmail.com",
+            from: process.env.USER,
             to: `${email}`,
             subject: 'Recuperação de senha - Grade Escolar',
             generateTextFromHTML: true,
