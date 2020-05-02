@@ -27,7 +27,7 @@ module.exports = {
 
         const disciplinas = await connection('disciplinas')
         .where('disciplinas.escola_id', escola_id)
-        .select('disciplinas.nome_disciplinas')
+        .select('disciplinas.nome_disciplina')
         .groupBy('disciplinas.nome_disciplina')
 
         return response.json(disciplinas);
