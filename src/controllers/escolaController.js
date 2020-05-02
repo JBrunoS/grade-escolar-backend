@@ -14,7 +14,7 @@ module.exports = {
 
         const data = await connection('escola').insert({ 
             nome, 
-            email, 
+            email,  
             telefone,
             cnpj,
             endereco, 

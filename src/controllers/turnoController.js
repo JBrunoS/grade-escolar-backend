@@ -33,7 +33,7 @@ module.exports = {
             res.status(204).send();
         }
 
-        return res.status(401).json('Esse turno já está cadastrado!')
+        return res.status(401).json({error : 'Esse turno já está cadastrado!'})
         
 
     },

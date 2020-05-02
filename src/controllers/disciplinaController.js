@@ -27,7 +27,7 @@ module.exports = {
 
         const disciplinas = await connection('disciplinas')
         .where('disciplinas.escola_id', escola_id)
-        .select('disciplinas.*')
+        .select('disciplinas.nome_disciplinas')
         .groupBy('disciplinas.nome_disciplina')
 
         return response.json(disciplinas);
@@ -66,7 +66,7 @@ module.exports = {
           return response.status(204).send();
         }
 
-        return response.status(404).send({error: "Já tem uma disciplina com esse mes cadastrada nesse nível"});
+        return response.status(404).json({error: "Já tem uma disciplina com esse mesmo nome cadastrada nesse nível"});
     },
 
     async put(request, response) {
