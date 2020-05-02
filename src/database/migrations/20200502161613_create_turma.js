@@ -8,8 +8,8 @@ exports.up = function(knex) {
         table.integer('escola_id');
   
         table.foreign('escola_id').references('escola.id');
-        table.foreign('nivel_id').references('nivel.id');
-        table.foreign('turno_id').references('turno.id');
+        table.foreign('nivel_id').references('niveis.id');
+        table.foreign('turno_id').references('turnos.id');
     })
   };
   

@@ -12,11 +12,11 @@ exports.up = function(knex) {
         table.integer('escola_id')
   
         table.foreign('escola_id').references('escola.id');
-        table.foreign('nivel_id').references('nivel.id');
-        table.foreign('turno_id').references('turno.id');
-        table.foreign('turma_id').references('turma.id');
+        table.foreign('nivel_id').references('niveis.id');
+        table.foreign('turno_id').references('turnos.id');
+        table.foreign('turma_id').references('turmas.id');
         table.foreign('professor_id').references('professor.id');
-        table.foreign('disciplina_id').references('disciplina.id');
+        table.foreign('disciplina_id').references('disciplinas.id');
     })
   };
   

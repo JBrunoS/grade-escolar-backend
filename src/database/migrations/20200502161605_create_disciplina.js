@@ -10,7 +10,7 @@ exports.up = function(knex) {
   
         table.foreign('escola_id').references('escola.id');
         table.foreign('professor_id').references('professor.id');
-        table.foreign('nivel_id').references('nivel.id');
+        table.foreign('nivel_id').references('niveis.id');
     })
   };
   
