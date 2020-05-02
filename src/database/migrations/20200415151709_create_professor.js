@@ -8,7 +8,7 @@ exports.up = function(knex) {
         table.string('telefone');
         table.string('senha');
         table.boolean('ativo');
-        table.int('escola_id');
+        table.integer('escola_id');
   
         table.foreign('escola_id').references('escola.id');
     })

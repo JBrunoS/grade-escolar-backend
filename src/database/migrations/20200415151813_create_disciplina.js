@@ -6,7 +6,7 @@ exports.up = function(knex) {
         table.time('carga_horaria');
         table.integer('professor_id');
         table.integer('nivel_id');
-        table.int('escola_id');
+        table.integer('escola_id');
   
         table.foreign('escola_id').references('escola.id');
         table.foreign('professor_id').references('professor.id');
