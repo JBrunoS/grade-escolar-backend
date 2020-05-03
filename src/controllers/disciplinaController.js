@@ -133,7 +133,7 @@ module.exports = {
             'disciplinas.escola_id': escola_id
         })
         .select('professor.*')
-        .groupBy('professor.nome')
+        .groupBy('professor.id')
 
         return response.json(professores)
     },
