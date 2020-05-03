@@ -72,15 +72,13 @@ module.exports = {
     async put(request, response) {
         const { id } = request.params;
         const escola_id = request.headers.authorization;
-        const { nome_disciplina, carga_horaria, professor_id, nivel_id } = request.body;
+        const { carga_horaria, professor_id } = request.body;
 
         const user = await connection('disciplinas')
         .where({'id': id, 'escola_id': escola_id})
         .update({
-            "nome_disciplina" : nome_disciplina, 
             "carga_horaria" : carga_horaria, 
-            "professor_id" : professor_id, 
-            "nivel_id": nivel_id, 
+            "professor_id" : professor_id
         })
 
         if (!user) {
