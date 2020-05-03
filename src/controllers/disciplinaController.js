@@ -126,13 +126,12 @@ module.exports = {
         const { id } = request.params;
 
         const professores = await connection('disciplinas')
-        .innerJoin('grade', 'disciplinas.id', 'grade.disciplina_id')
-        .innerJoin('professor', 'grade.professor_id', 'professor.id')
+        .innerJoin('professor', 'disciplinas.professor_id', 'professor.id')
         .where({
             'disciplinas.nome_disciplina' : id,
             'disciplinas.escola_id': escola_id
         })
-        .select('professor.*' , 'disciplinas.*')
+        .select('professor.*')
         .groupBy('professor.id')
 
         return response.json(professores)
