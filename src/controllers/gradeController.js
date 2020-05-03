@@ -135,7 +135,7 @@ module.exports = {
         })
 
         .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma')
-        .orderBy('dia', 'horario')
+        .orderBy('grade.dia', 'grade.horario')
 
         return response.json(grade)
     },
