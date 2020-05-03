@@ -99,7 +99,7 @@ module.exports = {
             'turnos.escola_id': escola_id
         })
         .select('disciplinas.*', 'professor.nome')
-        .groupBy('disciplinas.id')
+        .groupBy('disciplinas.id', 'professor.nome')
 
         return response.json(disciplina)
     },     
