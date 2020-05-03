@@ -8,6 +8,7 @@ module.exports = {
         .innerJoin('professor', 'disciplinas.professor_id', 'professor.id')
         .where('disciplinas.escola_id', escola_id)
         .select('disciplinas.*', 'professor.nome')
+        .orderBy('disciplinas.id')
 
         return response.json(disciplinas);
     },
