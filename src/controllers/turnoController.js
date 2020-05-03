@@ -98,7 +98,7 @@ module.exports = {
             'turnos.id' : id,
             'turnos.escola_id': escola_id
         })
-        .select('disciplinas.*')
+        .select('disciplinas.*', 'professor.nome')
         .groupBy('disciplinas.id')
 
         return response.json(disciplina)
