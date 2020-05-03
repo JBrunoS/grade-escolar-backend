@@ -40,7 +40,7 @@ module.exports = {
         const disciplinas = await connection('disciplinas')
         .innerJoin('professor', 'disciplinas.professor_id', 'professor.id')
         .where({'disciplinas.escola_id': escola_id, 'nivel_id': id})
-        .select('*');
+        .select('disciplinas.*', 'professor.nome');
 
         return response.json(disciplinas);
     },
@@ -150,8 +150,8 @@ module.exports = {
             'turmas.id' : id,
             'disciplinas.escola_id': escola_id
         })
-        .select('disciplinas.*')
-        .groupBy('disciplinas.id')
+        .select('disciplinas.*', 'professor.nome')
+        .groupBy('disciplinas.id', 'professor.nome')
 
         return response.json(professores)
     }
