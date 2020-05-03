@@ -91,7 +91,7 @@ module.exports = {
         const { id } = request.params;
 
         const disciplina = await connection('turnos')
-        .innerJoin('grade', 'turnos.id', 'grade.nivel_id')
+        .innerJoin('grade', 'turnos.id', 'grade.turno_id')
         .innerJoin('disciplinas', 'grade.disciplina_id', 'disciplinas.id')
         .innerJoin('professor', 'grade.professor_id', 'professor.id')
         .where({
