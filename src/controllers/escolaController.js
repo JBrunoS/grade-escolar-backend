@@ -12,18 +12,29 @@ module.exports = {
     async create (request, response){
         const { nome, email, telefone, cnpj, endereco, cidade, uf, senha} = request.body;
 
-        const data = await connection('escola').insert({ 
-            nome, 
-            email,  
-            telefone,
-            cnpj,
-            endereco, 
-            cidade, 
-            uf,
-            senha
-        });
+        const escola = await connection('escola')
+        .where('email', email)
+        .select('*')
+        .first();
+
+        if (!escola) {
+            const data = await connection('escola').insert({ 
+                nome, 
+                email,  
+                telefone,
+                cnpj,
+                endereco, 
+                cidade, 
+                uf,
+                senha
+            });
+            
+            return response.json( data.nome )
+        }
+
+        return response.status(401).json({ error: 'Esse email já está cadastrado.'})
+
         
-        return response.json( data.nome )
     },
 
     async getByEmail(request, response){
