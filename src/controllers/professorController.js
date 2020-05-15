@@ -213,5 +213,21 @@ module.exports = {
         
 
         return response.json(user);
+    },
+
+    async getByEmail(request, response) {
+        const {email, senha} =  request.body;
+
+        const professor = await connection('professor')
+        .where({'email': email, 'senha': senha})
+        .select('*')
+        .first()
+        
+
+        if (!professor) {
+            return response.status(400).json({ error : 'This email is not longer valid'});
+        }
+
+        return response.json(professor)
     }
 }

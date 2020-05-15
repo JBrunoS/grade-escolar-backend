@@ -61,6 +61,7 @@ routes.delete('/disciplinas/:id', DisciplinasController.delete)
 
 routes.get('/professor', ProfessorController.index);
 routes.get('/professor/count', ProfessorController.count);
+routes.post('/login', ProfessorController.getByEmail);
 routes.post('/professor', ProfessorController.create);
 routes.delete('/professor/:id', ProfessorController.delete)
 routes.put('/professor/:id', ProfessorController.put)
