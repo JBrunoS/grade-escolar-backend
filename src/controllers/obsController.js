@@ -3,7 +3,7 @@ const connection = require('../database/connection')
 module.exports  = {
     async index (request, response) {
         const escola_id = request.headers.authorization;
-        const grade_id =request.params;
+        const { grade_id } =request.params;
 
         const observacao = await connection('observacao')
         .where({'grade_id': grade_id,'escola_id': escola_id})
