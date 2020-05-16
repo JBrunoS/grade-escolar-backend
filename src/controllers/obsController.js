@@ -7,7 +7,8 @@ module.exports  = {
 
         const observacao = await connection('observacao')
         .where({'grade_id': grade_id,'escola_id': escola_id})
-        .select('*');
+        .select('*')
+        .orderBy('desc');
 
         return response.json(observacao);
     },
