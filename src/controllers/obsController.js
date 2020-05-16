@@ -1,0 +1,30 @@
+const connection = require('../database/connection')
+
+module.exports  = {
+    async index (request, response) {
+        const escola_id = request.headers.authorization;
+        const grade_id =request.params;
+
+        const observacao = await connection('observacao')
+        .where({'id': id,'escola_id': escola_id})
+        .select('*');
+
+        return response.json(observacao);
+    },
+
+    async create (request, response){
+        const escola_id = request.headers.authorization;
+        const grade_id =request.params;
+        const {descricao, data, hora} = request.body;
+
+        const incident = await connection('observacao').insert({
+            descricao,
+            data,
+            hora,
+            grade_id,
+            escola_id
+        })
+
+        return response.status(204).send();
+    }
+}
