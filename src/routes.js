@@ -10,6 +10,7 @@ const GradeController = require('./controllers/gradeController')
 const DisponibilidadeController = require('./controllers/disponibilidadeController')
 const DetailsController = require('./controllers/detailsController')
 const RecuperaSenha = require('./mail/recuperaSenha')
+const ObservacaoProfessorApp = require('./controllers/obsController')
 
 const routes = express.Router()
 
@@ -74,5 +75,8 @@ routes.get('/disponibilidade', DisponibilidadeController.index)
 
 routes.get('/details/disciplina/:id', DetailsController.disciplinas)
 routes.get('/details/professor/:id', DetailsController.professores)
+
+routes.get('/obs/:grade_id', ObservacaoProfessorApp.index)
+routes.post('/obs', ObservacaoProfessorApp.create)
 
 module.exports = routes;
