@@ -6,7 +6,7 @@ module.exports  = {
         const grade_id =request.params;
 
         const observacao = await connection('observacao')
-        .where({'id': id,'escola_id': escola_id})
+        .where({'grade_id': grade_id,'escola_id': escola_id})
         .select('*');
 
         return response.json(observacao);
