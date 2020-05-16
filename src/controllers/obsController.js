@@ -14,8 +14,7 @@ module.exports  = {
 
     async create (request, response){
         const escola_id = request.headers.authorization;
-        const grade_id =request.params;
-        const {descricao, data, hora} = request.body;
+        const {descricao, data, hora, grade_id} = request.body;
 
         const incident = await connection('observacao').insert({
             descricao,
