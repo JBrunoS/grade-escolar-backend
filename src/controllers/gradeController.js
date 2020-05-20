@@ -142,10 +142,10 @@ module.exports = {
         .innerJoin('observacao', 'grade.id', 'observacao.grade_id')
         .where({
             'grade.escola_id' : escola_id,
+            'grade.professor_id': id
         })
         .select('observacao.*')
         .orderBy('observacao.id', 'desc')
-        .first();
 
         const data = { grade, obs};
         return response.json(data)
