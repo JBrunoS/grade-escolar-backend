@@ -134,7 +134,7 @@ module.exports = {
             'grade.professor_id': id
         })
 
-        .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma', 'observacao.*')
+        .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma')
         .orderBy(['grade.dia', 'grade.horario'])
 
 
