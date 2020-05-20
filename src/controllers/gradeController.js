@@ -134,10 +134,21 @@ module.exports = {
             'grade.professor_id': id
         })
 
-        .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma')
+        .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma', 'observacao.*')
         .orderBy(['grade.dia', 'grade.horario'])
 
-        return response.json(grade)
+
+        const obs = await connection('grade')
+        .innerJoin('observacao', 'grade.id', 'observacao.grade_id')
+        .where({
+            'grade.escola_id' : escola_id,
+            'grade.professor_id': id
+        })
+        .select('observacao.*')
+        .limit(1)
+        .orderBy('observacao.id', 'desc')
+
+        return response.json(grade, obs)
     },
 
     async delete(request, response) {
