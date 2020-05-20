@@ -148,7 +148,8 @@ module.exports = {
         .limit(1)
         .orderBy('observacao.id', 'desc')
 
-        return response.json(grade, obs)
+        const data = { grade, obs};
+        return response.json(data)
     },
 
     async delete(request, response) {
