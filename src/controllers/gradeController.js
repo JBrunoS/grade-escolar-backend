@@ -129,13 +129,12 @@ module.exports = {
         .innerJoin('disciplinas', 'grade.disciplina_id', 'disciplinas.id')
         .innerJoin('professor', 'grade.professor_id', 'professor.id')
         .innerJoin('turmas', 'grade.turma_id', 'turmas.id')
-        .innerJoin('observacao', 'grade.id', 'observacao.grade_id')
         .where({
             'grade.escola_id' : escola_id,
             'grade.professor_id': id
         })
 
-        .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma', 'observacao.*')
+        .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma')
         .orderBy(['grade.dia', 'grade.horario'])
 
 
