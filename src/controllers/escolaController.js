@@ -2,9 +2,12 @@ const connection = require('../database/connection')
 
 module.exports = {
     async index(request, response){
-        const escola = await connection('escola')
-        .select('*');
+        const {id} = request.params;
 
+        const escola = await connection('escola')
+        .where('id', id)
+        .select('*')
+        .first();
 
         return response.json(escola);
     },
@@ -35,6 +38,30 @@ module.exports = {
         return response.status(401).json({ error: 'Esse email já está cadastrado.'})
 
         
+    },
+
+    async put (request, response) {
+        const { nome, email, telefone, cnpj, endereco, cidade, uf, senha} = request.body;
+        const { id } = request.params;
+
+        const escola = await connection('escola')
+        .where('id', id)
+        .update({
+            'nome': nome,
+            'email': email,
+            'telefone': telefone,
+            'cnpj': cnpj,
+            'endereco': endereco,
+            'cidade': cidade,
+            'uf': uf,
+            'senha': senha
+        })
+
+        if (!escola) {
+            return response.status(401).json({ error : 'Não foi possível alterar os dados'})
+        }
+        console.log(escola)
+        return response.json(escola);
     },
 
     async getByEmail(request, response){

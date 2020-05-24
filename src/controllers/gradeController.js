@@ -152,9 +152,8 @@ module.exports = {
     },
 
     async delete(request, response) {
-        const escola_id = request.headers.authorization;
         const {id} = request.params;
-        const  {senha}  = request.body;
+        
 
         const data =  await connection('grade')
         .innerJoin('escola', 'grade.escola_id', 'escola.id')
@@ -168,13 +167,21 @@ module.exports = {
         if (!data) {
             return response.status(401).json({ error: 'Esse usuário não está cadastrado na banco de dados' })
         }
-        if (data.escola_id != escola_id && data.escola.senha != senha) {
-            return response.status(401).json({ error: 'Não foi possível excluir esse usuário' })
-        }
+        
         await connection('grade').where('id', id).delete();
         
         
 
         return response.json(data)
+    },
+
+    async deleteAll(request, response) {
+        const { escola_id } = request.params;
+
+        await connection('grade')
+        .where('grade.escola_id', escola_id)
+        .delete()
+
+        return response.json({message : 'Grade resetada!'});
     }
 }

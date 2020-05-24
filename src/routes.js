@@ -22,6 +22,8 @@ routes.get('/grade/professor/:id', GradeController.getHoraProfessor)
 routes.get('/grade/nivel/:nivel_id/turma/:turma_id/turno/:turno_id', GradeController.filtred)
 routes.post('/grade', GradeController.create)
 routes.delete('/grade/:id', GradeController.delete)
+routes.delete('/delete/grade/:escola_id', GradeController.deleteAll)
+
 
 routes.get('/turmas', TurmasController.index)
 routes.get('/turmas/count', TurmasController.count)
@@ -32,9 +34,10 @@ routes.get('/turmas/:nivel/:turno', TurmasController.getTurmaByNivelTurno)
 routes.delete('/turmas/:id', TurmasController.delete)
 routes.put('/turmas/edit/:id', TurmasController.put)
 
-routes.get('/escola', EscolaController.index);
+routes.get('/escola/:id', EscolaController.index);
 routes.post('/escola', EscolaController.getByEmail);
 routes.post('/new/escola', EscolaController.create);
+routes.put('/escola/:id', EscolaController.put);
 
 
 routes.get('/niveis', NiveisController.index)

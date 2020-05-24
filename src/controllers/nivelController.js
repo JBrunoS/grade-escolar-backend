@@ -25,13 +25,28 @@ module.exports = {
         const escola_id = request.headers.authorization;
         const { nome_nivel } = request.body;
 
-        await connection('niveis')
-        .insert({
-            nome_nivel,
-            escola_id
+        const nivel = await connection('niveis')
+        .where({
+            'nome_nivel': nome_nivel,
+            'escola_id' : escola_id
         })
+        .select('*')
+        .first();
 
-        response.status(204).send();
+        console.log(nome_nivel)
+
+        if (!nivel) {
+            await connection('niveis')
+            .insert({
+                nome_nivel,
+                escola_id
+            })
+
+           return response.status(204).send();
+        }
+
+        return response.status(401).json({ error: 'Esse nível já está cadastrado'})
+        
 
     },
 
