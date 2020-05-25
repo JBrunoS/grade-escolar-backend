@@ -168,8 +168,8 @@ module.exports = {
             return response.status(401).json({ error: 'Esse usuário não está cadastrado na banco de dados' })
         }
         
-        await connection('grade').where('id', id).delete();
         await connection('observacao').where('turma_id', id).delete();
+        await connection('grade').where('id', id).delete();
 
         return response.json(data)
     },
