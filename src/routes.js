@@ -1,4 +1,5 @@
 const express = require('express')
+const { celebrate, Segments, Joi} = require('celebrate')
 
 const ProfessorController = require('./controllers/professorController')
 const EscolaController = require('./controllers/escolaController')
@@ -11,9 +12,12 @@ const DisponibilidadeController = require('./controllers/disponibilidadeControll
 const DetailsController = require('./controllers/detailsController')
 const RecuperaSenha = require('./mail/recuperaSenha')
 const ObservacaoProfessorApp = require('./controllers/obsController')
+const Message = require('./controllers/messageControler')
 
 const routes = express.Router()
 
+routes.post('/message/:escola_id', Message.create)
+routes.get('/message/:escola_id', Message.index)
 
 routes.post('/recupera', RecuperaSenha.index)
 
@@ -36,7 +40,18 @@ routes.put('/turmas/edit/:id', TurmasController.put)
 
 routes.get('/escola/:id', EscolaController.index);
 routes.post('/escola', EscolaController.getByEmail);
-routes.post('/new/escola', EscolaController.create);
+routes.post('/new/escola', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        nome: Joi.string().required(),
+        email: Joi.string().required().email(),
+        telefone: Joi.string().required().max(11),
+        cnpj: Joi.string().required().length(14),
+        endereco: Joi.string().required(),
+        cidade: Joi.string().required(),
+        uf: Joi.string().required().length(2),
+        senha: Joi.string().required().min(8),
+    })
+}), EscolaController.create);
 routes.put('/escola/:id', EscolaController.put);
 
 
