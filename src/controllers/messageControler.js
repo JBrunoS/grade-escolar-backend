@@ -20,7 +20,8 @@ module.exports = {
             'escola_id': escola_id,
             'professor': true
         })
-        .select('*');
+        .select('*')
+        .orderBy('id', 'desc');
 
         return response.json(result);
     },
