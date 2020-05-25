@@ -18,6 +18,8 @@ const routes = express.Router()
 
 routes.post('/message/:escola_id', Message.create)
 routes.get('/message/:escola_id', Message.index)
+routes.get('/message/professor/:escola_id', Message.getMessageProfessor)
+routes.get('/message/aluno/:escola_id', Message.getMessageAluno)
 
 routes.post('/recupera', RecuperaSenha.index)
 
