@@ -8,7 +8,7 @@ module.exports = {
         .where('escola_id', escola_id)
         .select('*')
         .orderBy('dia')
-        .orderBy('horario')
+        .orderBy('horario_inicio')
 
         return response.json(grade);
     },
@@ -21,7 +21,8 @@ module.exports = {
             nivel_id, 
             turno_id, 
             dia, 
-            horario, 
+            horario_inicio, 
+            horario_fim,
             } = request.body;
         
         const escola_id = request.headers.authorization;
@@ -34,22 +35,21 @@ module.exports = {
             'nivel_id' : nivel_id,
             'turno_id' : turno_id,
             'dia' : dia,
-            'horario' : horario
+            'horario_inicio' : horario_inicio,
+            'horario_fim': horario_fim
         })
         .select('*')
         .first();
 
         const dias = await connection('grade')
-            .where({
-                'dia' : dia,
-                'horario' : horario,
-                'professor_id' : professor_id,
-                
-            })
+            .where('dia', dia)    
+            .where('horario_inicio', '<=', horario_inicio)
+            .where('horario_fim', '>=', horario_inicio)
+            .where('professor_id', professor_id)
             .select('*')
             .first();
 
-        
+        console.log(dias);
         
         const disponibilidade = await connection('disponibilidade')
             .where({
@@ -61,11 +61,11 @@ module.exports = {
 
 
         const professor = await connection('grade')
-            .where({
-                'dia' : dia,
-                'horario' : horario,
-                'turma_id': turma_id
-            })
+            .where('dia', dia)    
+            .where('horario_inicio', '<=', horario_inicio)
+            .where('horario_fim', '>=', horario_inicio)
+            .where('turma_id', turma_id)
+            
             .select('*')
             .first();
         
@@ -94,11 +94,12 @@ module.exports = {
                         nivel_id, 
                         turno_id, 
                         dia, 
-                        horario, 
+                        horario_inicio, 
+                        horario_fim,
                         escola_id
                     })
     
-                    return response.json(horario)
+                    return response.json(horario_inicio + ':' + horario_fim)
         }
     },
 
@@ -116,7 +117,7 @@ module.exports = {
             'grade.turno_id': turno_id
         })
         .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina')
-        .orderBy('horario')
+        .orderBy('horario_inicio')
 
         return response.json(grade);
     },
@@ -135,7 +136,7 @@ module.exports = {
         })
 
         .select('grade.*', 'professor.nome', 'disciplinas.nome_disciplina', 'turmas.nome_turma')
-        .orderBy(['grade.dia', 'grade.horario'])
+        .orderBy(['grade.dia', 'grade.horario_inicio'])
 
 
         const obs = await connection('grade')

@@ -8,7 +8,8 @@ exports.up = function(knex) {
         table.integer('nivel_id')
         table.integer('turno_id')
         table.integer('dia')
-        table.time('horario')
+        table.time('horario_inicio')
+        table.time('horario_fim')
         table.integer('escola_id')
   
         table.foreign('escola_id').references('escola.id');
