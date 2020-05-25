@@ -49,7 +49,6 @@ module.exports = {
             .select('*')
             .first();
 
-        console.log(dias);
         
         const disponibilidade = await connection('disponibilidade')
             .where({
@@ -63,7 +62,7 @@ module.exports = {
         const professor = await connection('grade')
             .where('dia', dia)    
             .where('horario_inicio', '<=', horario_inicio)
-            .where('horario_fim', '>=', horario_inicio)
+            .where('horario_fim', '>', horario_inicio)
             .where('turma_id', turma_id)
             
             .select('*')
