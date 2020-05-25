@@ -169,8 +169,7 @@ module.exports = {
         }
         
         await connection('grade').where('id', id).delete();
-        
-        
+        await connection('observacao').where('turma_id', id).delete();
 
         return response.json(data)
     },
