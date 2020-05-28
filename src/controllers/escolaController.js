@@ -32,7 +32,7 @@ module.exports = {
                 senha
             });
             
-            return response.json( data.nome )
+            return response.json( nome )
         }
 
         return response.status(401).json({ error: 'Esse email já está cadastrado.'})
@@ -60,7 +60,7 @@ module.exports = {
         if (!escola) {
             return response.status(401).json({ error : 'Não foi possível alterar os dados'})
         }
-        console.log(escola)
+
         return response.json(escola);
     },
 
