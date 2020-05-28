@@ -42,33 +42,11 @@ routes.get('/message/aluno/:escola_id', celebrate({
 routes.post('/recupera', RecuperaSenha.index)
 
 routes.get('/grade', GradeController.index)
-routes.get('/grade/professor/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
-    }),
-}), GradeController.getHoraProfessor)
-
-routes.get('/grade/nivel/:nivel_id/turma/:turma_id/turno/:turno_id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        nivel_id: Joi.number().required(),
-        turma_id: Joi.number().required(),
-        turno_id: Joi.number().required(),
-    }),
-}), GradeController.filtred)
-
+routes.get('/grade/professor/:id', GradeController.getHoraProfessor)
+routes.get('/grade/nivel/:nivel_id/turma/:turma_id/turno/:turno_id', GradeController.filtred)
 routes.post('/grade', GradeController.create)
-
-routes.delete('/grade/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
-    }),
-}), GradeController.delete)
-
-routes.delete('/delete/grade/:escola_id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        escola_id: Joi.number().required(),
-    }),
-}), GradeController.deleteAll)
+routes.delete('/grade/:id', GradeController.delete)
+routes.delete('/delete/grade/:escola_id', GradeController.deleteAll)
 
 
 routes.get('/turmas', TurmasController.index)
