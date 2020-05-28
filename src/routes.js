@@ -16,28 +16,10 @@ const Message = require('./controllers/messageControler')
 
 const routes = express.Router()
 
-routes.post('/message/:escola_id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        escola_id: Joi.number().required(),
-    }),
-    
-}), Message.create)
-routes.get('/message/:escola_id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        escola_id: Joi.number().required(),
-    }),
-}), Message.index)
-routes.get('/message/professor/:escola_id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        escola_id: Joi.number().required(),
-    }),
-}), Message.getMessageProfessor)
-
-routes.get('/message/aluno/:escola_id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        escola_id: Joi.number().required(),
-    }),
-}), Message.getMessageAluno)
+routes.post('/message/:escola_id', Message.create)
+routes.get('/message/:escola_id', Message.index)
+routes.get('/message/professor/:escola_id',  Message.getMessageProfessor)
+routes.get('/message/aluno/:escola_id', Message.getMessageAluno)
 
 routes.post('/recupera', RecuperaSenha.index)
 
@@ -52,31 +34,11 @@ routes.delete('/delete/grade/:escola_id', GradeController.deleteAll)
 routes.get('/turmas', TurmasController.index)
 routes.get('/turmas/count', TurmasController.count)
 routes.post('/turmas', TurmasController.create)
-routes.get('/turmas/nivel/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
-    }),
-}), TurmasController.getTurmaByNivel)
-
-routes.get('/turmas/turno/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
-    }),
-}), TurmasController.getTurmaByTurno)
-
+routes.get('/turmas/nivel/:id', TurmasController.getTurmaByNivel)
+routes.get('/turmas/turno/:id', TurmasController.getTurmaByTurno)
 routes.get('/turmas/:nivel/:turno', TurmasController.getTurmaByNivelTurno)
-
-routes.delete('/turmas/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
-    }),
-}), TurmasController.delete)
-
-routes.put('/turmas/edit/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
-    }),
-}), TurmasController.put)
+routes.delete('/turmas/:id', TurmasController.delete)
+routes.put('/turmas/edit/:id', TurmasController.put)
 
 routes.get('/escola/:id', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
