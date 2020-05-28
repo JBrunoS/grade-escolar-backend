@@ -125,7 +125,7 @@ module.exports = {
             }
             return response.status(204).send();
         }
-        return response.status(400).json({error: 'There is someone using this e-mail'})
+        return response.status(400).json({message: 'There is someone using this e-mail'})
         
     },
 
