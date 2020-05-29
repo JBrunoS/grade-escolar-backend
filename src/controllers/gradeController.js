@@ -168,7 +168,6 @@ module.exports = {
             return response.status(401).json({ error: 'Esse usuário não está cadastrado na banco de dados' })
         }
         
-        await connection('observacao').where('grade_id', id).delete();
         await connection('grade').where('id', id).delete();
 
         return response.json(data)
@@ -177,9 +176,8 @@ module.exports = {
     async deleteAll(request, response) {
         const { escola_id } = request.params;
 
-        await connection('grade')
-        .where('grade.escola_id', escola_id)
-        .delete()
+        await connection('observacao').where('escola_id', escola_id).delete();
+        await connection('grade').where('grade.escola_id', escola_id).delete();
 
         return response.json({message : 'Grade resetada!'});
     }
