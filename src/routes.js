@@ -105,7 +105,7 @@ routes.put('/turno/:id', celebrate({
 
 routes.get('/disciplinas', DisciplinasController.index)
 routes.get('/disciplinas/count', DisciplinasController.count)
-routes.get('/disciplinas/name', DisciplinasController.getDisciplinaByName)
+routes.get('/disciplinas/name/:disciplina', DisciplinasController.getDisciplinaByName)
 routes.post('/disciplinas', DisciplinasController.create)
 routes.get('/disciplinas/nivel/:id', celebrate({
     [Segments.PARAMS]: Joi.object().keys({

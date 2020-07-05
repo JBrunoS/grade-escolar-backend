@@ -5,9 +5,8 @@ module.exports = {
         const escola_id = request.headers.authorization;
 
         const disciplinas = await connection('disciplinas')
-        .innerJoin('professor', 'disciplinas.professor_id', 'professor.id')
         .where('disciplinas.escola_id', escola_id)
-        .select('disciplinas.*', 'professor.nome')
+        .select('disciplinas.*')
         .orderBy('disciplinas.id')
 
         return response.json(disciplinas);
@@ -25,13 +24,22 @@ module.exports = {
 
     async getDisciplinaByName (request, response) {
         const escola_id = request.headers.authorization;
+        const { disciplina } = request.params;
+
 
         const disciplinas = await connection('disciplinas')
-        .where('disciplinas.escola_id', escola_id)
-        .select('disciplinas.nome_disciplina')
-        .groupBy('disciplinas.nome_disciplina')
+        .innerJoin('grade', 'disciplinas.id', 'grade.disciplina_id')
+        .innerJoin('professor', 'grade.professor_id', 'professor.id')
+        .where({
+            'disciplinas.nome_disciplina': disciplina,
+            'disciplinas.escola_id': escola_id
+        })
+        .select('professor.*')
+        .groupBy('professor.id')
 
         return response.json(disciplinas);
+
+        
     },
 
     async getDisciplinaByNivel (request, response){
@@ -39,19 +47,20 @@ module.exports = {
         const { id } = request.params;
 
         const disciplinas = await connection('disciplinas')
-        .innerJoin('professor', 'disciplinas.professor_id', 'professor.id')
-        .where({'disciplinas.escola_id': escola_id, 'nivel_id': id})
-        .select('disciplinas.*', 'professor.nome');
+        .innerJoin('grade', 'disciplinas.id', 'grade.disciplina_id')
+
+        .where({'disciplinas.escola_id': escola_id, 'grade.nivel_id': id})
+        .select('disciplinas.*');
 
         return response.json(disciplinas);
     },
 
     async create (request, response) {
         const escola_id = request.headers.authorization;
-        const { nome_disciplina, carga_horaria, professor_id, nivel_id } = request.body;
+        const { nome_disciplina, carga_horaria } = request.body;
 
         const disciplina = await connection('disciplinas')
-        .where({'nivel_id' : nivel_id, 'nome_disciplina': nome_disciplina})
+        .where({'nome_disciplina': nome_disciplina})
         .select("*")
         .first();
         
@@ -60,26 +69,24 @@ module.exports = {
             await connection('disciplinas').insert({
                 nome_disciplina,
                 carga_horaria,
-                professor_id,
-                nivel_id,
                 escola_id
             })
           return response.status(204).send();
         }
 
-        return response.status(404).json({error: "Já tem uma disciplina com esse mesmo nome cadastrada nesse nível"});
+        return response.status(404).json({error: "Já tem uma disciplina com esse mesmo"});
     },
 
     async put(request, response) {
         const { id } = request.params;
         const escola_id = request.headers.authorization;
-        const { carga_horaria, professor_id } = request.body;
+        const { disciplina, carga_horaria } = request.body;
 
         const user = await connection('disciplinas')
         .where({'id': id, 'escola_id': escola_id})
         .update({
+            "nome_disciplina": disciplina,
             "carga_horaria" : carga_horaria, 
-            "professor_id" : professor_id
         })
 
         if (!user) {

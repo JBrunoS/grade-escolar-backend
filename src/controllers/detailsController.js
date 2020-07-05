@@ -6,10 +6,8 @@ module.exports = {
         const escola_id = request.headers.authorization;
 
         const incidents = await connection('disciplinas')
-        .innerJoin('professor', 'disciplinas.professor_id', 'professor.id')
-        .innerJoin('niveis', 'disciplinas.nivel_id', 'niveis.id')
         .where({'disciplinas.id': id, 'disciplinas.escola_id': escola_id})
-        .select('disciplinas.*', 'professor.nome', 'niveis.nome_nivel')
+        .select('disciplinas.*')
         .first();
         
 

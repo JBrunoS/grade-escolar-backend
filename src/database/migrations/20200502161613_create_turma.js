@@ -5,6 +5,7 @@ exports.up = function(knex) {
         table.string('nome_turma');
         table.integer('nivel_id');
         table.integer('turno_id');
+        table.string('sala');
         table.integer('escola_id');
   
         table.foreign('escola_id').references('escola.id');

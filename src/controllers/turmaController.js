@@ -26,14 +26,17 @@ module.exports = {
     },
 
     async create (request, response) {
-        const { nome_turma, nivel_id, turno_id } = request.body;
+        const { nome_turma, nivel_id, turno_id, sala } = request.body;
         const escola_id = request.headers.authorization;
+
+        console.log(sala);
 
         await connection('turmas')
         .insert({
             nome_turma,
             nivel_id,
             turno_id,
+            sala,
             escola_id
         })
 
@@ -128,7 +131,7 @@ module.exports = {
     async put(request, response) {
         const { id } = request.params;
         const escola_id = request.headers.authorization;
-        const { nome_turma, nivel_id, turno_id } = request.body;
+        const { nome_turma, nivel_id, turno_id, sala } = request.body;
 
         const user = await connection('turmas')
         .where({'id': id, 'escola_id': escola_id})
@@ -136,6 +139,7 @@ module.exports = {
             "nome_turma" : nome_turma, 
             "nivel_id" : nivel_id, 
             "turno_id" : turno_id, 
+            "sala": sala
         })
 
         if (!user) {
