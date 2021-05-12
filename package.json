@@ -17,7 +17,7 @@
     "express": "^4.17.1",
     "googleapis": "^49.0.0",
     "knex": "^0.20.13",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "pg": "^8.0.2"
   },
   "devDependencies": {
